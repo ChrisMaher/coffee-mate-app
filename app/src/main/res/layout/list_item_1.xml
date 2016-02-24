@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#ffffff"
+    android:weightSum="1">
+
+    <RelativeLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="137dp"
+        android:background="#ffffff">
+
+        <TextView
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:text="title"
+            android:id="@+id/title"
+            android:textStyle="bold"
+            android:textColor="#000000"
+            android:padding="5dp"
+            android:layout_below="@+id/votes"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_toLeftOf="@+id/thumbnail"
+            android:layout_toStartOf="@+id/thumbnail"
+            android:maxLines="2" />
+
+        <TextView
+            android:layout_width="fill_parent"
+            android:layout_height="25dp"
+            android:text="name"
+            android:id="@+id/name"
+            android:layout_alignParentBottom="true"
+            android:textColor="#000000"
+            android:background="#f4f0f0"
+            android:paddingLeft="5dp"
+            android:paddingTop="1dp"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentEnd="true"
+            android:minLines="1" />
+
+        <ImageView
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:id="@+id/thumbnail"
+            android:background="#cecec3"
+            android:layout_above="@+id/name"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentEnd="true"
+            android:layout_margin="10dp" />
+
+        <TextView
+            android:layout_width="30dp"
+            android:layout_height="wrap_content"
+            android:text="000"
+            android:id="@+id/votes"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:textColor="#fe0000"
+            android:textStyle="bold"
+            android:paddingTop="5dp"
+            android:paddingLeft="5dp"
+            android:textAlignment="center"
+            android:gravity="center"
+            android:layout_marginRight="10dp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="price"
+            android:id="@+id/price"
+            android:layout_below="@+id/title"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:padding="5dp"
+            android:minLines="1" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="retailer"
+            android:id="@+id/retailer"
+            android:layout_below="@+id/title"
+            android:layout_toRightOf="@+id/price"
+            android:layout_toEndOf="@+id/price"
+            android:paddingTop="5dp"
+            android:paddingRight="5dp"
+            android:paddingBottom="5dp"
+            android:minLines="1" />
+
+        <ImageButton
+            android:layout_width="20dp"
+            android:layout_height="wrap_content"
+            android:id="@+id/imageButton"
+            android:paddingTop="10dp"
+            android:src="@drawable/arrowdown"
+            android:layout_alignParentTop="true"
+            android:layout_toRightOf="@+id/votes"
+            android:layout_toEndOf="@+id/votes"
+            android:layout_alignBottom="@+id/votes"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp" />
+
+        <ImageButton
+            android:layout_width="20dp"
+            android:layout_height="wrap_content"
+            android:id="@+id/imageButton2"
+            android:layout_alignTop="@+id/imageButton"
+            android:layout_toRightOf="@+id/imageButton"
+            android:layout_toEndOf="@+id/imageButton"
+            android:paddingTop="10dp"
+            android:src="@drawable/arrowup"
+            android:layout_above="@+id/title"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp" />
+
+    </RelativeLayout>
+
+</LinearLayout>
