@@ -1,4 +1,4 @@
-package com.chris.app.saveme.adapters;
+package com.chris.app.coffee.adapters;
 
 /**
  * Created by chris on 27/12/15.

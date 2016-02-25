@@ -1,4 +1,4 @@
-package com.chris.app.saveme.models;
+package com.chris.app.coffee.models;
 
 import android.media.Image;
 

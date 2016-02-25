@@ -1,4 +1,4 @@
-package com.chris.app.saveme.models;
+package com.chris.app.coffee.models;
 
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
@@ -8,6 +8,7 @@ import android.support.v7.widget.Toolbar;
 import android.view.View;
 
 import com.chris.app.saveme.R;
+
 
 public class SavingView extends AppCompatActivity {
 

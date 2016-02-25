@@ -1,4 +1,4 @@
-package com.chris.app.saveme;
+package com.chris.app.coffee;
 
 import android.app.ProgressDialog;
 import android.content.Intent;
@@ -9,7 +9,9 @@ import android.graphics.BitmapFactory;
 import android.os.AsyncTask;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.text.Html;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -25,8 +27,11 @@ import android.widget.Toast;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.VolleyLog;
+import com.android.volley.toolbox.ImageLoader;
 import com.android.volley.toolbox.JsonArrayRequest;
-import com.chris.app.saveme.adapters.VolleyAdapter;
+import com.androidquery.AQuery;
+import com.chris.app.coffee.adapters.VolleyAdapter;
+import com.chris.app.saveme.R;
 import com.facebook.CallbackManager;
 import com.facebook.FacebookCallback;
 import com.facebook.FacebookException;
@@ -49,6 +54,7 @@ import org.json.JSONObject;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.GooglePlayServicesUtil;
 import com.google.android.gms.common.api.GoogleApiClient;
+import com.google.android.gms.drive.query.Query;
 import com.google.android.gms.plus.Plus;
 import com.google.android.gms.plus.model.people.Person;
 
@@ -85,6 +91,8 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.C
 
     private TextView txtResponse;
 
+    private ImageView coffeeImage;
+
     // temporary string to show the parsed response
     private String jsonResponse;
 
@@ -94,6 +102,7 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.C
         super.onCreate(savedInstanceState);
         // Initialize SDK before setContentView(Layout ID)
         FacebookSdk.sdkInitialize(getApplicationContext());
+
         setContentView(R.layout.activity_main);
 
         // Get SharedPreference Login
@@ -121,6 +130,7 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.C
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.menu_main, menu);
+
 
         facebookMenuButton = menu.findItem(R.id.action_facebook_login);
         googleMenuButton = menu.findItem(R.id.action_google_login);
@@ -237,6 +247,7 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.C
      * Background Async task to load user profile picture from url
      */
     private class LoadProfileImage extends AsyncTask<String, Void, Bitmap> {
+
         ImageView bmImage;
 
         public LoadProfileImage(ImageView bmImage) {
@@ -343,7 +354,7 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.C
                                     SharedPreferences.Editor editor = settings.edit();
                                     editor.putString("email", email);
                                     editor.putString("name", fullName);
-                                    editor.commit();
+                                    editor.apply();
 
 
                                 } catch (Exception e) {
@@ -425,41 +436,54 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.C
                                 JSONObject dealObject = (JSONObject) response.get(i);
 
                                 String dealTitle = dealObject.getString("title");
-                                String dealDetails = dealObject.getString("details");
-                                JSONObject dealUserObject = dealObject.getJSONObject("user");
-                                String dealUsername = dealUserObject.getString("displayName");
+                                int dealPrice = dealObject.getInt("price");
+                                String brandLogo = dealObject.getString("brandlogo");
                                 int dealVotes = dealObject.getInt("votes");
-                                double dealPrice = dealObject.getDouble("price");
-                                String dealRetailer = dealObject.getString("retailer");
+                                String dealRetailer = dealObject.getString("brand");
 
-                                ImageView thumbnail = (ImageView) findViewById(R.id.thumbnail);
+//                                String dealDetails = dealObject.getString("title");
+//                                JSONObject dealUserObject = dealObject.getJSONObject("user");
+//                                String dealUsername = dealUserObject.getString("title");
+//                                int dealVotes = dealObject.getInt("votes");
+//                                double dealPrice = dealObject.getDouble("price");
+//                                String dealRetailer = dealObject.getString("title");
 
-                                jsonResponse += "Name: " + dealTitle + "\n\n";
-                                jsonResponse += "Email: " + dealDetails + "\n\n";
-                                jsonResponse += "Home: " + dealUsername + "\n\n";
-                                jsonResponse += "Votes: " + dealVotes + "\n\n\n";
-                                jsonResponse += "Price: " + dealVotes + "\n\n\n\n";
-                                jsonResponse += "Retailer: " + dealRetailer + "\n\n\n\n\n";
+                                ImageView thumbnail = (ImageView) findViewById(R.id.brandlogo);
+
+
+                                jsonResponse += "title: " + dealTitle + "\n\n";
+                                jsonResponse += "price: " + dealPrice + "\n\n";
+                                jsonResponse += "brandlogo: " + brandLogo + "\n\n";
+                                jsonResponse += "votes: " + dealVotes + "\n\n\n";
+                                jsonResponse += "retailer: " + dealRetailer + "\n\n\n\n\n";
 
                                 HashMap<String, String> map = new HashMap<String, String>();
 
                                 map.put("1", dealTitle);
-                                map.put("2", dealUsername);
-                                map.put("3", dealVotes+"");
-                                map.put("4", dealDetails);
-                                map.put("5", "£"+dealPrice);
-                                map.put("6", "@ " + dealRetailer);
+                                map.put("2", "€" + dealPrice+".00");
+                                map.put("3", brandLogo);
+                                map.put("4", dealVotes+"");
+                                map.put("5", dealRetailer);
 
                                 oslist.add(map);
                                 list=(ListView)findViewById(R.id.listView);
 
                                 ListAdapter adapter = new SimpleAdapter(MainActivity.this, oslist,
                                         R.layout.list_item_1,
-                                        new String[] { "1", "2", "3", "5", "6"}, new int[] {
-                                        R.id.title,  R.id.name, R.id.votes, R.id.price, R.id.retailer });
+//                                        new String[] { "1", "2", "3", "5", "6"}, new int[] {
+                                        new String[] { "1","2","3","4","5"}, new int[] {
+//                                        R.id.title,  R.id.name, R.id.votes, R.id.price, R.id.retailer });
+                                        R.id.title,
+                                        R.id.price,
+                                        R.id.brandlogo,
+                                        R.id.votes,
+                                        R.id.retailer
+                                });
 
 
-                                list.setAdapter(adapter);
+
+
+                  list.setAdapter(adapter);
 
 
                                 list.setOnItemClickListener(new AdapterView.OnItemClickListener() {

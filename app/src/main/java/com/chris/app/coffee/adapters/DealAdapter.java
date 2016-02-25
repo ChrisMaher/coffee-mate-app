@@ -1,4 +1,4 @@
-package com.chris.app.saveme.adapters;
+package com.chris.app.coffee.adapters;
 
 import android.content.ContentValues;
 import android.content.Context;
@@ -7,7 +7,7 @@ import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
-import com.chris.app.saveme.models.DealModel;
+import com.chris.app.coffee.models.DealModel;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 

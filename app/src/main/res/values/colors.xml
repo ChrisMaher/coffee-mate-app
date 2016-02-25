@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="black">#009688</color>
-    <color name="primary_material_dark">#009688</color>
+    <color name="black">#8C662E</color>
+    <color name="primary_material_dark">#231F20</color>
 </resources>
